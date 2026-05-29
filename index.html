@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samratth Singh — Adversarial AI Researcher</title>
+<meta name="description" content="Adversarial AI Researcher, LLM Red Teamer, Prompt Injection Specialist & Offensive Security Engineer.">
+<meta name="keywords" content="Adversarial AI, Prompt Injection, LLM Red Teaming, AI Security, Cybersecurity, Offensive Security">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cyan:#00F7FF;
+  --cyan2:#00D4FF;
+  --green:#00FF88;
+  --orange:#FF7A00;
+  --quantum:#B47CFF;
+  --quantum2:#7A4DFF;
+  --quantum-dim:#B47CFF22;
+  --bg:#050505;
+  --bg2:#080808;
+  --bg3:#0A0F14;
+  --card:#0D1520;
+  --border:#00F7FF18;
+  --border2:#00F7FF33;
+  --mono:'Share Tech Mono',monospace;
+  --display:'Rajdhani',sans-serif;
+  --body:'Exo 2',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#C8D8E8;font-family:var(--body);overflow-x:hidden;line-height:1.6}
+
+/* CANVAS BG */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+#hero,nav,section,.divider,footer,#term-wrap{position:relative;z-index:1}
+
+/* CUSTOM CURSOR */
+@media(hover:hover) and (pointer:fine){
+  *{cursor:none !important}
+  #cursor{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .25s,height .25s,opacity .25s}
+  #cursor::before,#cursor::after{content:'';position:absolute;background:var(--cyan)}
+  #cursor::before{top:50%;left:0;right:0;height:1px;transform:translateY(-50%);box-shadow:0 0 6px var(--cyan)}
+  #cursor::after{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%);box-shadow:0 0 6px var(--cyan)}
+  #cursor .ring{position:absolute;inset:0;border:1px solid var(--cyan);border-radius:50%;opacity:.5;transition:transform .2s,border-color .2s,opacity .2s}
+  #cursor.hot{width:54px;height:54px}
+  #cursor.hot .ring{transform:rotate(45deg) scale(.55);border-color:var(--orange);opacity:1}
+  #cursor.hot::before,#cursor.hot::after{background:var(--orange);box-shadow:0 0 8px var(--orange)}
+  #dot{position:fixed;top:0;left:0;width:5px;height:5px;background:var(--green);border-radius:50%;pointer-events:none;z-index:10001;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--green)}
+}
+
+/* SCROLL PROGRESS */
+#scroll-prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--cyan),var(--orange));z-index:200;box-shadow:0 0 10px var(--cyan)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#080808}
+::-webkit-scrollbar-thumb{background:#00F7FF33;border-radius:2px}
+
+/* BOOT SCREEN */
+#boot{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono);overflow:hidden}
+#boot::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,#00F7FF04 3px,#00F7FF04 4px);pointer-events:none}
+#boot.hidden{pointer-events:none;opacity:0;transform:scale(1.08);filter:blur(6px);transition:opacity .8s ease .2s,transform .9s ease,filter .9s ease}
+.boot-line{font-size:13px;color:#00F7FF88;margin:3px 0;opacity:0;animation:bl .1s forwards}
+@keyframes bl{to{opacity:1}}
+.boot-name{font-family:var(--display);font-size:clamp(28px,6vw,52px);font-weight:700;color:#00F7FF;letter-spacing:8px;margin-top:24px;opacity:0;animation:bl .1s forwards;text-shadow:0 0 30px #00F7FF55}
+.boot-role{font-size:13px;color:#00D4FF88;letter-spacing:3px;margin-top:8px;opacity:0;animation:bl .1s forwards}
+.boot-bar{width:260px;height:2px;background:#00F7FF11;margin-top:24px;border-radius:1px;overflow:hidden}
+.boot-progress{height:100%;width:0;background:var(--cyan);transition:width .4s ease;box-shadow:0 0 10px var(--cyan)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#050505cc;backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;transition:transform .4s ease,background .3s}
+nav.nav-hidden{transform:translateY(-100%)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:var(--display);font-size:18px;font-weight:700;color:var(--cyan);letter-spacing:3px;text-decoration:none;position:relative;transition:text-shadow .3s}
+.nav-logo:hover{text-shadow:0 0 16px var(--cyan)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:6px 14px;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:#5A7A8A;text-decoration:none;transition:color .2s;text-transform:uppercase;position:relative}
+.nav-links a::after{content:'';position:absolute;left:14px;right:14px;bottom:2px;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .25s ease;box-shadow:0 0 6px var(--cyan)}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a:hover::after,.nav-links a.nav-active::after{transform:scaleX(1)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer !important;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--cyan);transition:transform .3s,opacity .3s}
+.hamburger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:#050505;border-bottom:1px solid var(--border);flex-direction:column;padding:12px 0}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 24px}
+  .hamburger{display:flex}
+}
+
+/* SECTIONS */
+section{padding:80px 24px;max-width:1200px;margin:0 auto}
+.sec-label{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:700;color:#E8F4FF;line-height:1.15;margin-bottom:32px}
+.sec-title span{color:var(--cyan)}
+.scramble{cursor:default}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,#00F7FF08 0%,transparent 70%);z-index:-1}
+.grid-lines{position:absolute;inset:-50%;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.4;z-index:-1;will-change:transform}
+.hero-content{max-width:800px}
+.hero-tag{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:2px;border:1px solid #00FF8833;padding:4px 12px;border-radius:2px;margin-bottom:20px;opacity:0;animation:heroIn .7s ease .1s forwards;position:relative;overflow:hidden}
+.hero-tag::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,#00FF8822,transparent);animation:sweep 3.5s ease-in-out infinite 2s}
+@keyframes sweep{0%{left:-60%}40%,100%{left:160%}}
+.hero-name{font-family:var(--display);font-size:clamp(40px,8vw,80px);font-weight:700;color:#E8F4FF;line-height:1;margin-bottom:12px;letter-spacing:2px;opacity:0;animation:heroIn .8s ease .25s forwards}
+.hero-name span{color:var(--cyan)}
+.glitch{position:relative;display:inline-block}
+.glitch.go::before,.glitch.go::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.glitch.go::before{color:var(--orange);animation:gl1 .4s steps(2) 1;clip-path:inset(0 0 60% 0);left:2px}
+.glitch.go::after{color:var(--cyan);animation:gl2 .4s steps(2) 1;clip-path:inset(60% 0 0 0);left:-2px}
+@keyframes gl1{0%{transform:translateX(0)}25%{transform:translateX(-4px)}50%{transform:translateX(3px)}100%{transform:translateX(0)}}
+@keyframes gl2{0%{transform:translateX(0)}25%{transform:translateX(4px)}50%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+.hero-roles{font-family:var(--mono);font-size:14px;color:#00D4FF99;margin-bottom:32px;min-height:24px;opacity:0;animation:heroIn .7s ease .45s forwards}
+.hero-desc{font-size:16px;color:#5A7A8A;max-width:560px;line-height:1.8;margin-bottom:40px;opacity:0;animation:heroIn .7s ease .6s forwards}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:heroIn .7s ease .75s forwards}
+@keyframes heroIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.btn-primary,.btn-ghost{position:relative;display:inline-block;padding:12px 28px;font-family:var(--mono);font-size:12px;letter-spacing:2px;text-decoration:none;text-transform:uppercase;transition:color .2s,box-shadow .3s;cursor:pointer !important;overflow:hidden;will-change:transform}
+.btn-primary{background:transparent;border:1px solid var(--cyan);color:var(--cyan)}
+.btn-primary::before,.btn-ghost::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:scaleY(0);transform-origin:bottom;transition:transform .3s ease;z-index:-1}
+.btn-primary:hover{color:#050505;box-shadow:0 0 24px #00F7FF66}
+.btn-primary:hover::before{transform:scaleY(1)}
+.btn-ghost{background:transparent;border:1px solid #2A3A4A;color:#5A7A8A}
+.btn-ghost::before{background:#2A3A4A}
+.btn-ghost:hover{color:#C8D8E8;border-color:#5A7A8A}
+.btn-ghost:hover::before{transform:scaleY(1)}
+.btn-primary span,.btn-ghost span{position:relative;z-index:1;pointer-events:none}
+.hero-stats{display:flex;gap:40px;margin-top:60px;flex-wrap:wrap;opacity:0;animation:heroIn .7s ease .9s forwards}
+.stat{text-align:left}
+.stat-num{font-family:var(--display);font-size:32px;font-weight:700;color:var(--cyan);line-height:1;text-shadow:0 0 18px #00F7FF44}
+.stat-label{font-family:var(--mono);font-size:10px;color:#3A5A6A;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+
+/* TERMINAL */
+#term-wrap{padding:0 24px 60px;max-width:1200px;margin:0 auto}
+.terminal{background:#070D14;border:1px solid var(--border2);border-radius:6px;overflow:hidden;font-family:var(--mono);box-shadow:0 0 40px #00F7FF0a}
+.terminal-bar{background:#0A1520;border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px}
+.tdot{width:10px;height:10px;border-radius:50%;transition:transform .2s}
+.terminal-bar:hover .tdot{transform:scale(1.2)}
+.tdot-r{background:#FF5F57}.tdot-y{background:#FFBD2E}.tdot-g{background:#28CA42}
+.t-title{flex:1;text-align:center;font-size:11px;color:#00F7FF55;letter-spacing:2px}
+.terminal-body{padding:20px 24px;font-size:13px;line-height:1.9}
+.t-cursor{display:inline-block;width:7px;height:14px;background:var(--cyan);vertical-align:middle;animation:blink 1s step-end infinite;box-shadow:0 0 6px var(--cyan)}
+@keyframes blink{50%{opacity:0}}
+.scanlines{position:relative}
+.scanlines::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,#00F7FF03 2px,#00F7FF03 4px);pointer-events:none}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.profile-card{background:var(--card);border:1px solid var(--border);padding:32px;border-radius:4px;position:relative;transition:box-shadow .3s;will-change:transform}
+.profile-card:hover{box-shadow:0 0 50px #00F7FF14}
+.profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.avatar{width:80px;height:80px;border-radius:4px;background:#0A1520;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:20px;position:relative;overflow:hidden}
+.avatar::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,#00F7FF22,transparent 30%);animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar b{position:relative;z-index:1}
+.profile-name{font-family:var(--display);font-size:22px;font-weight:700;color:#E8F4FF;margin-bottom:4px}
+.profile-role{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:2px;margin-bottom:20px}
+.profile-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.tag{display:inline-block;padding:3px 10px;border:1px solid var(--border2);font-family:var(--mono);font-size:10px;color:#4A7A8A;border-radius:2px;letter-spacing:1px;transition:all .2s}
+.tag:hover{color:var(--cyan);border-color:var(--cyan);background:#00F7FF0d;transform:translateY(-2px)}
+.about-text{color:#5A7A8A;font-size:15px;line-height:1.9;margin-bottom:24px}
+.domains{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.domain{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:#3A6A7A;letter-spacing:1px;transition:color .2s,transform .2s}
+.domain::before{content:'◈';color:var(--orange);font-size:10px;transition:transform .3s}
+.domain:hover{color:var(--cyan);transform:translateX(4px)}
+.domain:hover::before{transform:rotate(180deg)}
+
+/* CARD REVEAL + TILT */
+.tilt{transition:box-shadow .3s;will-change:transform;transform-style:preserve-3d}
+.research-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:4px;margin-bottom:20px;position:relative;transition:border-color .2s,box-shadow .3s}
+.research-card:hover{border-color:var(--border2);box-shadow:0 0 40px #00F7FF12}
+.research-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .2s}
+.research-card:hover::before{opacity:1}
+.award-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:#FFD70011;border:1px solid #FFD70033;font-family:var(--mono);font-size:10px;color:#FFD700;letter-spacing:1px;margin-bottom:16px;border-radius:2px}
+.award-badge::before{content:'★';animation:twinkle 1.6s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:1;text-shadow:0 0 8px #FFD700}50%{opacity:.5;text-shadow:none}}
+.research-title{font-family:var(--display);font-size:20px;font-weight:600;color:#D8E8F8;margin-bottom:8px}
+.research-venue{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:1px;margin-bottom:12px}
+.research-desc{font-size:14px;color:#4A6A7A;line-height:1.8;margin-bottom:16px}
+.attack-cats{display:flex;flex-wrap:wrap;gap:6px}
+.acat{padding:3px 10px;background:#00F7FF08;border:1px solid #00F7FF22;font-family:var(--mono);font-size:10px;color:#00D4FF88;border-radius:2px;transition:all .18s;cursor:default}
+.acat:hover{background:#00F7FF1a;color:var(--cyan);border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 4px 12px #00F7FF22}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.project-card{background:var(--card);border:1px solid var(--border);padding:28px;border-radius:4px;position:relative;transition:border-color .2s,box-shadow .3s;cursor:default;overflow:hidden}
+.project-card:hover{border-color:var(--border2);box-shadow:0 0 40px #FF7A0012}
+.project-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:0;transition:opacity .2s}
+.project-card:hover::after{opacity:1}
+.threat-badge{display:inline-block;padding:3px 10px;font-family:var(--mono);font-size:10px;letter-spacing:1px;border-radius:2px;margin-bottom:16px}
+.threat-high{background:#FF7A0011;border:1px solid #FF7A0033;color:var(--orange)}
+.threat-crit{background:#FF003311;border:1px solid #FF003333;color:#FF5555;animation:pulseRed 2s ease-in-out infinite}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 #FF003300}50%{box-shadow:0 0 14px #FF003344}}
+.threat-med{background:#FFD70011;border:1px solid #FFD70033;color:#FFD700}
+.project-name{font-family:var(--display);font-size:22px;font-weight:700;color:#E8F4FF;margin-bottom:6px;letter-spacing:2px}
+.project-subtitle{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:1px;margin-bottom:12px}
+.project-desc{font-size:13px;color:#4A6A7A;line-height:1.8;margin-bottom:16px}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.sitem{padding:2px 8px;background:#0A1520;border:1px solid #1A3040;font-family:var(--mono);font-size:10px;color:#2A5A6A;border-radius:2px;transition:all .18s}
+.sitem:hover{color:var(--cyan);border-color:var(--border2)}
+
+/* CTF */
+.ctf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.ctf-card{background:var(--card);border:1px solid var(--border);padding:24px;border-radius:4px;text-align:center;position:relative;overflow:hidden;transition:border-color .2s,transform .3s,box-shadow .3s}
+.ctf-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 40px #00000066}
+.ctf-card::before{content:'';position:absolute;top:-100%;left:0;right:0;height:100%;background:linear-gradient(180deg,transparent,#00F7FF0a);transition:top .4s}
+.ctf-card:hover::before{top:0}
+.ctf-rank{font-family:var(--display);font-size:36px;font-weight:700;line-height:1;margin-bottom:4px}
+.ctf-rank.gold{color:#FFD700;text-shadow:0 0 20px #FFD70044}
+.ctf-rank.cyan{color:var(--cyan);text-shadow:0 0 20px #00F7FF44}
+.ctf-rank.green{color:var(--green);text-shadow:0 0 20px #00FF8844}
+.ctf-label{font-family:var(--mono);font-size:11px;color:#3A6A7A;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.ctf-platform{font-family:var(--mono);font-size:10px;color:#1A4A5A;letter-spacing:1px}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.skill-group{background:var(--card);border:1px solid var(--border);padding:24px;border-radius:4px;transition:box-shadow .3s}
+.skill-group:hover{box-shadow:0 0 36px #00F7FF0f}
+.skill-group-title{font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.skill-item{margin-bottom:12px}
+.skill-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.skill-name{font-family:var(--mono);font-size:12px;color:#5A7A8A}
+.skill-pct{font-family:var(--mono);font-size:11px;color:var(--cyan)}
+.skill-bar{height:3px;background:#0D1A22;border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--cyan2));border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1);position:relative}
+.skill-fill::after{content:'';position:absolute;top:0;right:0;width:8px;height:100%;background:#fff;box-shadow:0 0 10px var(--cyan);opacity:.7}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--cyan),transparent)}
+.tl-item{position:relative;margin-bottom:40px}
+.tl-dot{position:absolute;left:-36px;top:4px;width:10px;height:10px;border:1px solid var(--cyan);background:var(--bg);border-radius:2px;transform:rotate(45deg);transition:all .3s}
+.tl-item:hover .tl-dot{background:var(--cyan);box-shadow:0 0 14px var(--cyan);transform:rotate(45deg) scale(1.3)}
+.tl-year{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:2px;margin-bottom:6px}
+.tl-title{font-family:var(--display);font-size:18px;font-weight:600;color:#D8E8F8;margin-bottom:2px}
+.tl-org{font-family:var(--mono);font-size:12px;color:#2A6A7A;margin-bottom:8px}
+.tl-desc{font-size:14px;color:#3A6A7A;line-height:1.8}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.cert-card{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:4px;transition:border-color .2s,transform .3s,box-shadow .3s}
+.cert-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 30px #00000055}
+.cert-icon{font-size:28px;margin-bottom:12px;display:inline-block;transition:transform .3s}
+.cert-card:hover .cert-icon{transform:scale(1.2) rotate(-8deg)}
+.cert-name{font-family:var(--display);font-size:15px;font-weight:600;color:#C8D8E8;margin-bottom:4px;line-height:1.3}
+.cert-issuer{font-family:var(--mono);font-size:10px;color:#2A5A6A;letter-spacing:1px}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-text{color:#4A6A7A;font-size:15px;line-height:1.9;margin-bottom:28px}
+.contact-links{display:flex;flex-direction:column;gap:12px}
+.contact-link{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--card);border:1px solid var(--border);text-decoration:none;color:#5A7A8A;font-family:var(--mono);font-size:12px;letter-spacing:1px;transition:all .2s;border-radius:2px;position:relative;overflow:hidden}
+.contact-link::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);transform:scaleY(0);transition:transform .25s}
+.contact-link:hover{border-color:var(--border2);color:var(--cyan);transform:translateX(6px);box-shadow:0 0 24px #00F7FF12}
+.contact-link:hover::before{transform:scaleY(1)}
+.contact-link span{color:var(--cyan);font-size:14px;width:18px}
+
+/* FOOTER */
+footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;color:#1A3A4A;letter-spacing:2px}
+footer span{color:var(--cyan)}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 24px}
+
+/* QUANTUM DIVISION */
+#quantum .sec-label{color:var(--quantum)}
+#quantum .sec-title span{color:var(--quantum)}
+.q-intro{color:#6A5A8A;font-size:15px;line-height:1.9;max-width:720px;margin-bottom:36px}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.q-card{background:linear-gradient(160deg,#100A1E,#0A0712);border:1px solid #B47CFF1f;padding:28px;border-radius:4px;position:relative;overflow:hidden;transition:border-color .25s,box-shadow .3s}
+.q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--quantum),transparent);opacity:0;transition:opacity .25s}
+.q-card:hover{border-color:#B47CFF55;box-shadow:0 0 46px #7A4DFF1c}
+.q-card:hover::before{opacity:1}
+.q-card::after{content:'';position:absolute;width:160px;height:160px;right:-60px;top:-60px;background:radial-gradient(circle,#B47CFF18,transparent 70%);pointer-events:none}
+.q-tag{display:inline-block;padding:3px 10px;font-family:var(--mono);font-size:10px;letter-spacing:1px;border-radius:2px;margin-bottom:14px;background:#B47CFF12;border:1px solid #B47CFF33;color:var(--quantum)}
+.q-name{font-family:var(--display);font-size:21px;font-weight:700;color:#EDE4FF;margin-bottom:6px;letter-spacing:1px}
+.q-sub{font-family:var(--mono);font-size:10px;color:var(--quantum);letter-spacing:1px;margin-bottom:12px}
+.q-desc{font-size:13.5px;color:#6A5A8A;line-height:1.8;margin-bottom:16px}
+.q-chips{display:flex;flex-wrap:wrap;gap:6px}
+.q-chip{padding:2px 9px;background:#B47CFF0d;border:1px solid #B47CFF22;font-family:var(--mono);font-size:10px;color:#9A82C8;border-radius:2px;transition:all .18s}
+.q-chip:hover{color:var(--quantum);border-color:var(--quantum);background:#B47CFF1a;transform:translateY(-2px)}
+/* qubit superposition motif */
+.qubit{position:relative;width:54px;height:54px;margin-bottom:18px}
+.qubit .orbit{position:absolute;inset:0;border:1px solid #B47CFF44;border-radius:50%}
+.qubit .orbit.o2{transform:rotate(60deg) scaleY(.4)}
+.qubit .orbit.o3{transform:rotate(-60deg) scaleY(.4)}
+.qubit .core{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--quantum);box-shadow:0 0 14px var(--quantum);animation:qpulse 2.4s ease-in-out infinite}
+@keyframes qpulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+.qubit .e{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--quantum2);box-shadow:0 0 8px var(--quantum2);top:0;left:50%;margin-left:-2.5px;animation:qspin 3.6s linear infinite;transform-origin:2.5px 27px}
+@keyframes qspin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.qubit .core,.qubit .e{animation:none}}
+
+/* REVEAL */
+.fade-in{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.fade-in.visible{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.stagger.visible>*{opacity:1;transform:none}
+
+a.nav-active{color:var(--cyan) !important}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001s !important;transition-duration:.001s !important}
+  #particles{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-prog"></div>
+<canvas id="particles"></canvas>
+<div id="cursor"><div class="ring"></div></div>
+<div id="dot"></div>
+
+<!-- BOOT SCREEN -->
+<div id="boot">
+  <div id="boot-lines"></div>
+  <div class="boot-name" id="boot-name" style="display:none">SAMRATTH SINGH</div>
+  <div class="boot-role" id="boot-role" style="display:none">ADVERSARIAL AI RESEARCHER · LLM RED TEAMER</div>
+  <div class="boot-bar" id="boot-bar" style="display:none"><div class="boot-progress" id="boot-prog"></div></div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">SS</a>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#about">Profile</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#quantum">Quantum</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#ctf">CTF</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines" id="gridlines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// OPERATOR AUTHENTICATED — CLEARANCE: ACTIVE</div>
+    <h1 class="hero-name"><span class="glitch" data-text="SAMRATTH">SAMRATTH</span><br><span class="glitch" data-text="SINGH" style="color:var(--cyan)">SINGH</span></h1>
+    <div class="hero-roles" id="hero-roles"></div>
+    <p class="hero-desc">Specializing in adversarial attacks against large language models, prompt injection taxonomies, and offensive AI security research. Award-winning researcher. Elite CTF competitor.</p>
+    <div class="hero-btns">
+      <a href="#research" class="btn-primary magnetic"><span>View Research</span></a>
+      <a href="#contact" class="btn-ghost magnetic"><span>Contact</span></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" data-count="2" data-suffix="+">0</div><div class="stat-label">Publications</div></div>
+      <div class="stat"><div class="stat-num" data-count="12" data-suffix="+">0</div><div class="stat-label">Attack Categories</div></div>
+      <div class="stat"><div class="stat-num" data-text="Top 5%">0</div><div class="stat-label">HackTheBox</div></div>
+      <div class="stat"><div class="stat-num" data-count="14" data-suffix="th">0</div><div class="stat-label">National CTF</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMINAL -->
+<div id="term-wrap" class="fade-in">
+  <div class="terminal scanlines">
+    <div class="terminal-bar">
+      <div class="tdot tdot-r"></div><div class="tdot tdot-y"></div><div class="tdot tdot-g"></div>
+      <div class="t-title">THREAT INTELLIGENCE TERMINAL — S.A.G.E v2.4.1</div>
+    </div>
+    <div class="terminal-body" id="term-body">
+      <div id="term-content"></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" id="term-btns"></div>
+</div>
+
+<!-- ABOUT -->
+<div class="divider"></div>
+<section id="about" class="fade-in">
+  <div class="sec-label">// 01 — OPERATOR PROFILE</div>
+  <h2 class="sec-title scramble">Mission <span>Profile</span></h2>
+  <div class="about-grid">
+    <div>
+      <div class="profile-card tilt">
+        <div class="avatar"><b>SS</b></div>
+        <div class="profile-name">Samratth Singh</div>
+        <div class="profile-role">ADVERSARIAL AI RESEARCHER · LLM RED TEAMER</div>
+        <div class="profile-tags">
+          <span class="tag">PROMPT INJECTION</span>
+          <span class="tag">JAILBREAKING</span>
+          <span class="tag">OFFENSIVE SEC</span>
+          <span class="tag">OSINT</span>
+          <span class="tag">CTF</span>
+          <span class="tag">QUANTUM</span>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:16px;font-family:var(--mono);font-size:12px;color:#2A5A6A;line-height:2">
+          <div>STATUS &nbsp; <span style="color:var(--green)">◉ ACTIVE RESEARCHER</span></div>
+          <div>CLEARANCE &nbsp; <span style="color:var(--cyan)">OPERATOR</span></div>
+          <div>BEST PAPER &nbsp; <span style="color:#FFD700">ICEM 2024</span></div>
+          <div>BEST PRES. &nbsp; <span style="color:#FFD700">NCTAAI 4.0</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="about-text">I operate at the intersection of artificial intelligence and offensive security — probing the boundaries of large language models, designing novel attack taxonomies, and building frameworks that expose vulnerabilities before adversaries do.</p>
+      <p class="about-text">My research focuses on prompt injection, jailbreaking methodologies, and adversarial machine learning. With award-winning publications and top-tier CTF rankings, I bring both academic rigor and hands-on offensive capability.</p>
+      <div style="margin-bottom:24px">
+        <div class="sec-label" style="margin-bottom:12px">// Research Domains</div>
+        <div class="domains">
+          <div class="domain">Adversarial AI</div>
+          <div class="domain">Prompt Injection</div>
+          <div class="domain">Jailbreaking</div>
+          <div class="domain">LLM Red Teaming</div>
+          <div class="domain">Offensive Security</div>
+          <div class="domain">Threat Modeling</div>
+          <div class="domain">Behavioral Biometrics</div>
+          <div class="domain">OSINT</div>
+          <div class="domain">Network Security</div>
+          <div class="domain">AI Security</div>
+          <div class="domain">Quantum Cryptography</div>
+          <div class="domain">Quantum Adversarial ML</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<div class="divider"></div>
+<section id="research" class="fade-in">
+  <div class="sec-label">// 02 — RESEARCH INTELLIGENCE DATABASE</div>
+  <h2 class="sec-title scramble">Threat <span>Research</span></h2>
+
+  <div class="research-card tilt">
+    <div class="award-badge">BEST PAPER AWARD &nbsp;·&nbsp; BEST PRESENTATION AWARD</div>
+    <h3 class="research-title">Prompt Injection & Jailbreaking: A Comprehensive Taxonomy of Adversarial Attacks on Large Language Models</h3>
+    <div class="research-venue">ICEM 2024 &nbsp;·&nbsp; NCTAAI 4.0 &nbsp;·&nbsp; 2024</div>
+    <p class="research-desc">A comprehensive taxonomy and empirical analysis of adversarial attack vectors targeting large language models. Systematically categorizes 12+ distinct attack categories, documents novel prompt injection pathways, and proposes mitigation frameworks for AI safety engineering.</p>
+    <div class="attack-cats">
+      <span class="acat">Direct Injection</span>
+      <span class="acat">Indirect Injection</span>
+      <span class="acat">Jailbreaking</span>
+      <span class="acat">Role-play Attacks</span>
+      <span class="acat">Multi-turn Evasion</span>
+      <span class="acat">Adversarial Suffixes</span>
+      <span class="acat">Context Manipulation</span>
+      <span class="acat">Token Smuggling</span>
+      <span class="acat">Prompt Leaking</span>
+      <span class="acat">Goal Hijacking</span>
+      <span class="acat">Model Inversion</span>
+      <span class="acat">Alignment Bypass</span>
+    </div>
+  </div>
+
+  <div style="margin-top:40px">
+    <div class="sec-label" style="margin-bottom:16px">// Attack Surface Map</div>
+    <div class="stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+      <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--orange);letter-spacing:2px;margin-bottom:8px">INJECTION</div>
+        <div style="font-size:13px;color:#3A6A7A;line-height:1.9">Direct Prompt Injection<br>Indirect Injection<br>Context Poisoning<br>System Prompt Leak</div>
+      </div>
+      <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:2px;margin-bottom:8px">JAILBREAK</div>
+        <div style="font-size:13px;color:#3A6A7A;line-height:1.9">Role-play Exploitation<br>DAN Variants<br>Token Adversarial<br>Persona Hijacking</div>
+      </div>
+      <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:8px">EVASION</div>
+        <div style="font-size:13px;color:#3A6A7A;line-height:1.9">Multi-turn Attacks<br>Semantic Bypass<br>Encoding Tricks<br>Obfuscation</div>
+      </div>
+      <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:#FF5555;letter-spacing:2px;margin-bottom:8px">EXTRACTION</div>
+        <div style="font-size:13px;color:#3A6A7A;line-height:1.9">Model Inversion<br>Training Data Leak<br>Membership Inference<br>Prompt Reconstruction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUANTUM -->
+<div class="divider"></div>
+<section id="quantum" class="fade-in">
+  <div class="sec-label">// Q — QUANTUM RESEARCH DIVISION</div>
+  <h2 class="sec-title scramble">Quantum <span>Frontier</span></h2>
+  <p class="q-intro">A forward-deployed research thread exploring where quantum computation collides with security. As post-quantum threat models move from theory to roadmap, this division studies the offensive and defensive primitives of the quantum era — secure key exchange, quantum-native reconnaissance, and adversarial machine learning on quantum and quantum-inspired models.</p>
+
+  <div class="q-grid stagger">
+
+    <div class="q-card tilt">
+      <div class="qubit"><div class="orbit"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"></div><div class="e"></div></div>
+      <div class="q-tag">PROTOCOL · KEY EXCHANGE</div>
+      <div class="q-name">Quantum Cryptography</div>
+      <div class="q-sub">QKD · POST-QUANTUM · HARVEST-NOW-DECRYPT-LATER</div>
+      <p class="q-desc">Research into quantum key distribution and the migration to post-quantum cryptography. Examines the security guarantees of BB84-style protocols, models the "harvest-now, decrypt-later" adversary against classical traffic, and evaluates lattice-based KEMs as drop-in replacements for vulnerable public-key schemes.</p>
+      <div class="q-chips">
+        <span class="q-chip">BB84 / E91</span>
+        <span class="q-chip">QKD</span>
+        <span class="q-chip">Kyber / Dilithium</span>
+        <span class="q-chip">Shor Threat Model</span>
+        <span class="q-chip">PQC Migration</span>
+        <span class="q-chip">Side-Channel</span>
+      </div>
+    </div>
+
+    <div class="q-card tilt">
+      <div class="qubit"><div class="orbit"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"></div><div class="e"></div></div>
+      <div class="q-tag">RECON · GRAPH INTELLIGENCE</div>
+      <div class="q-name">Quantum Hypergraph Recon</div>
+      <div class="q-sub">HYPERGRAPH MODELING · QUANTUM WALKS · ATTACK SURFACE</div>
+      <p class="q-desc">An experimental reconnaissance framework that models an attack surface as a hypergraph — where a single edge binds many assets, identities, and trust relationships at once. Quantum-walk and quantum-inspired sampling traverse this structure to surface high-leverage pivots and hidden lateral paths that pairwise graph analysis misses.</p>
+      <div class="q-chips">
+        <span class="q-chip">Hypergraphs</span>
+        <span class="q-chip">Quantum Walks</span>
+        <span class="q-chip">Spectral Recon</span>
+        <span class="q-chip">Pivot Discovery</span>
+        <span class="q-chip">Attack Trees</span>
+        <span class="q-chip">QAOA Sampling</span>
+      </div>
+    </div>
+
+    <div class="q-card tilt">
+      <div class="qubit"><div class="orbit"></div><div class="orbit o2"></div><div class="orbit o3"></div><div class="core"></div><div class="e"></div></div>
+      <div class="q-tag">ADVERSARIAL · QUANTUM ML</div>
+      <div class="q-name">Quantum Adversarial AI</div>
+      <div class="q-sub">VQC ATTACKS · QML EVASION · HYBRID PIPELINES</div>
+      <p class="q-desc">Extends adversarial machine learning into the quantum regime — crafting perturbations against variational quantum classifiers and hybrid quantum-classical models. Studies evasion and poisoning under noisy intermediate-scale hardware, and asks whether quantum feature maps offer genuine robustness or merely a new, unexplored attack surface.</p>
+      <div class="q-chips">
+        <span class="q-chip">VQC Evasion</span>
+        <span class="q-chip">Quantum Perturbations</span>
+        <span class="q-chip">QML Poisoning</span>
+        <span class="q-chip">NISQ Noise</span>
+        <span class="q-chip">Quantum Feature Maps</span>
+        <span class="q-chip">Hybrid Robustness</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:40px">
+    <div class="sec-label" style="margin-bottom:16px;color:var(--quantum)">// Quantum Threat Horizon</div>
+    <div class="stagger" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+      <div class="tilt" style="background:linear-gradient(160deg,#100A1E,#0A0712);border:1px solid #B47CFF1f;padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--quantum);letter-spacing:2px;margin-bottom:8px">DEFEND</div>
+        <div style="font-size:13px;color:#6A5A8A;line-height:1.9">Post-Quantum Migration<br>QKD Channels<br>Crypto-Agility<br>Key Lifecycle</div>
+      </div>
+      <div class="tilt" style="background:linear-gradient(160deg,#100A1E,#0A0712);border:1px solid #B47CFF1f;padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--quantum);letter-spacing:2px;margin-bottom:8px">RECON</div>
+        <div style="font-size:13px;color:#6A5A8A;line-height:1.9">Hypergraph Mapping<br>Quantum Walks<br>Pivot Scoring<br>Trust-Edge Analysis</div>
+      </div>
+      <div class="tilt" style="background:linear-gradient(160deg,#100A1E,#0A0712);border:1px solid #B47CFF1f;padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--quantum);letter-spacing:2px;margin-bottom:8px">ATTACK</div>
+        <div style="font-size:13px;color:#6A5A8A;line-height:1.9">VQC Adversarials<br>QML Evasion<br>Data Poisoning<br>Feature-Map Probing</div>
+      </div>
+      <div class="tilt" style="background:linear-gradient(160deg,#100A1E,#0A0712);border:1px solid #B47CFF1f;padding:16px;border-radius:4px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--quantum);letter-spacing:2px;margin-bottom:8px">BREAK</div>
+        <div style="font-size:13px;color:#6A5A8A;line-height:1.9">Shor's Algorithm<br>Grover Search<br>RSA / ECC Decay<br>Harvest-Decrypt-Later</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div class="divider"></div>
+<section id="projects" class="fade-in">
+  <div class="sec-label">// 03 — CLASSIFIED OPERATIONS</div>
+  <h2 class="sec-title scramble">Projects <span>Lab</span></h2>
+  <div class="projects-grid stagger">
+    <div class="project-card tilt">
+      <div class="threat-badge threat-crit">THREAT LEVEL: CRITICAL</div>
+      <div class="project-name">T.E.M.P.E.S.T</div>
+      <div class="project-subtitle">THREAT ENUMERATION & MODELING PLATFORM FOR ENTERPRISE SECURITY TESTING</div>
+      <p class="project-desc">Automated threat modeling and attack surface enumeration framework designed for enterprise AI deployments. Maps adversarial pathways, generates attack trees, and quantifies risk exposure across LLM-integrated systems.</p>
+      <div class="stack">
+        <span class="sitem">Python</span><span class="sitem">LangChain</span><span class="sitem">NetworkX</span><span class="sitem">FastAPI</span>
+      </div>
+    </div>
+    <div class="project-card tilt">
+      <div class="threat-badge threat-high">THREAT LEVEL: HIGH</div>
+      <div class="project-name">SPH1NX</div>
+      <div class="project-subtitle">SYSTEMATIC PROMPT HEURISTIC INJECTION & NOVEL EXPLOITATION FRAMEWORK</div>
+      <p class="project-desc">Automated LLM red teaming engine that generates, mutates, and evaluates adversarial prompts at scale. Implements 12+ attack categories with adaptive strategy selection based on model response analysis.</p>
+      <div class="stack">
+        <span class="sitem">Python</span><span class="sitem">OpenAI API</span><span class="sitem">Transformers</span><span class="sitem">Redis</span>
+      </div>
+    </div>
+    <div class="project-card tilt">
+      <div class="threat-badge threat-med">THREAT LEVEL: ELEVATED</div>
+      <div class="project-name">S.I.F.E.R</div>
+      <div class="project-subtitle">SECURE INFERENCE FRAMEWORK FOR ENTERPRISE RESILIENCE</div>
+      <p class="project-desc">Defense-oriented framework providing hardened inference pipelines for production LLM deployments. Implements real-time injection detection, output sanitization, and behavioral anomaly monitoring.</p>
+      <div class="stack">
+        <span class="sitem">Python</span><span class="sitem">Docker</span><span class="sitem">Prometheus</span><span class="sitem">React</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTF -->
+<div class="divider"></div>
+<section id="ctf" class="fade-in">
+  <div class="sec-label">// 04 — CYBER RANGE OPERATIONS</div>
+  <h2 class="sec-title scramble">CTF <span>Achievements</span></h2>
+  <div class="ctf-grid stagger">
+    <div class="ctf-card"><div class="ctf-rank gold">14th</div><div class="ctf-label">National Rank</div><div class="ctf-platform">CIPHATHON CTF</div></div>
+    <div class="ctf-card"><div class="ctf-rank cyan">Top 5%</div><div class="ctf-label">Global Ranking</div><div class="ctf-platform">HACKTHEBOX</div></div>
+    <div class="ctf-card"><div class="ctf-rank green">Top 7%</div><div class="ctf-label">Global Ranking</div><div class="ctf-platform">TRYHACKME</div></div>
+    <div class="ctf-card"><div class="ctf-rank gold">2×</div><div class="ctf-label">Award Winner</div><div class="ctf-platform">ICEM 2024 · NCTAAI</div></div>
+  </div>
+  <div class="stagger" style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+    <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:2px;margin-bottom:8px">HTB FOCUS AREAS</div>
+      <div style="font-size:13px;color:#3A6A7A;line-height:2">Web Exploitation · OSINT<br>Reverse Engineering<br>Cryptography · Forensics<br>Machine Learning Challenges</div>
+    </div>
+    <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:8px">THM ACHIEVEMENTS</div>
+      <div style="font-size:13px;color:#3A6A7A;line-height:2">Advanced Offensive Paths<br>SOC Level 1 & 2<br>Red Team Operator<br>AI Security Labs</div>
+    </div>
+    <div class="tilt" style="background:var(--card);border:1px solid var(--border);padding:16px;border-radius:4px">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--orange);letter-spacing:2px;margin-bottom:8px">OSINT CAPABILITIES</div>
+      <div style="font-size:13px;color:#3A6A7A;line-height:2">Social Engineering Intel<br>Open Source Recon<br>Digital Footprinting<br>Geolocation Analysis</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="divider"></div>
+<section id="skills" class="fade-in">
+  <div class="sec-label">// 05 — TACTICAL CAPABILITY MATRIX</div>
+  <h2 class="sec-title scramble">Skills <span>Overview</span></h2>
+  <div class="skills-grid stagger" id="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Adversarial AI</div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Prompt Injection</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Jailbreaking</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">LLM Red Teaming</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Adversarial ML</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Offensive Security</div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Web Exploitation</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Network Security</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">OSINT</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill" data-w="87"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Threat Modeling</span><span class="skill-pct">84%</span></div><div class="skill-bar"><div class="skill-fill" data-w="84"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Programming</div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Python</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">JavaScript</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Bash / Shell</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">SQL</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title" style="color:var(--quantum)">Quantum Security</div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Quantum Cryptography</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80" style="background:linear-gradient(90deg,var(--quantum2),var(--quantum))"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Post-Quantum / PQC</span><span class="skill-pct">76%</span></div><div class="skill-bar"><div class="skill-fill" data-w="76" style="background:linear-gradient(90deg,var(--quantum2),var(--quantum))"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Hypergraph Recon</span><span class="skill-pct">74%</span></div><div class="skill-bar"><div class="skill-fill" data-w="74" style="background:linear-gradient(90deg,var(--quantum2),var(--quantum))"></div></div></div>
+      <div class="skill-item"><div class="skill-row"><span class="skill-name">Quantum Adversarial ML</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70" style="background:linear-gradient(90deg,var(--quantum2),var(--quantum))"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="divider"></div>
+<section id="timeline" class="fade-in">
+  <div class="sec-label">// 06 — MISSION LOGS</div>
+  <h2 class="sec-title scramble">Experience <span>Timeline</span></h2>
+  <div class="timeline stagger">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025 — PRESENT</div>
+      <div class="tl-title">Software Engineer Intern</div>
+      <div class="tl-org">Dexpert Systems</div>
+      <div class="tl-desc">Secure infrastructure development, VPN architecture design, and OWASP vulnerability remediation. Implemented zero-trust principles across production API surfaces and conducted internal red team assessments.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-title">Research Intern</div>
+      <div class="tl-org">ICAR</div>
+      <div class="tl-desc">Threat assessment and AI security research. Developed novel prompt injection taxonomies resulting in Best Paper and Best Presentation awards at ICEM 2024 and NCTAAI 4.0. Led adversarial evaluation of deployed language models.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2023 — ONGOING</div>
+      <div class="tl-title">Independent Security Researcher</div>
+      <div class="tl-org">Self-directed / CTF Competitions</div>
+      <div class="tl-desc">Continuous offensive security research across HackTheBox and TryHackMe platforms. Achieved national ranking in Ciphathon CTF. Active development of T.E.M.P.E.S.T, SPH1NX, and S.I.F.E.R research tools.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<div class="divider"></div>
+<section id="certs" class="fade-in">
+  <div class="sec-label">// 07 — CERTIFICATION VAULT</div>
+  <h2 class="sec-title scramble">Credentials & <span>Certifications</span></h2>
+  <div class="certs-grid stagger">
+    <div class="cert-card"><div class="cert-icon">🛡️</div><div class="cert-name">CEH v12</div><div class="cert-issuer">EC-COUNCIL</div></div>
+    <div class="cert-card"><div class="cert-icon">⚔️</div><div class="cert-name">Advanced Network Attacks</div><div class="cert-issuer">PRACTICAL CERTIFICATION</div></div>
+    <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name">Web Application Hacking</div><div class="cert-issuer">PENETRATION TESTING</div></div>
+    <div class="cert-card"><div class="cert-icon">🔐</div><div class="cert-name">Cryptography Fundamentals</div><div class="cert-issuer">APPLIED CRYPTOGRAPHY</div></div>
+    <div class="cert-card"><div class="cert-icon">💀</div><div class="cert-name">HTB Pro Hacker</div><div class="cert-issuer">HACKTHEBOX — TOP 5%</div></div>
+    <div class="cert-card"><div class="cert-icon">🎯</div><div class="cert-name">TryHackMe Advanced</div><div class="cert-issuer">TRYHACKME — TOP 7%</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="divider"></div>
+<section id="contact" class="fade-in">
+  <div class="sec-label">// 08 — ESTABLISH CONTACT</div>
+  <h2 class="sec-title scramble">Get In <span>Touch</span></h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-text">Available for research collaborations, security consulting, CTF team invitations, and speaking opportunities. Particularly interested in adversarial AI, LLM safety, and offensive security research projects.</p>
+      <p class="contact-text">Response time: typically within 24–48 hours.</p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="contact-link"><span>@</span> your@email.com</a>
+        <a href="https://github.com/yourusername" target="_blank" class="contact-link"><span>⌥</span> github.com/yourusername</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link"><span>in</span> linkedin.com/in/samratthsingh</a>
+        <a href="https://tryhackme.com/p/yourusername" target="_blank" class="contact-link"><span>⚑</span> tryhackme.com/p/samratth</a>
+      </div>
+    </div>
+    <div class="terminal tilt" style="font-size:12px">
+      <div class="terminal-bar">
+        <div class="tdot tdot-r"></div><div class="tdot tdot-y"></div><div class="tdot tdot-g"></div>
+        <div class="t-title">CONTACT PROTOCOL</div>
+      </div>
+      <div class="terminal-body">
+        <p style="color:#00F7FF88;font-family:var(--mono);font-size:12px;line-height:2.2">
+          <span style="color:#2A5A6A">[PROTOCOL]</span> &nbsp;Email preferred<br>
+          <span style="color:#2A5A6A">[TOPICS] &nbsp;</span> &nbsp;AI Security · Research<br>
+          <span style="color:#2A5A6A">[TOPICS] &nbsp;</span> &nbsp;CTF · Collaboration<br>
+          <span style="color:#2A5A6A">[TOPICS] &nbsp;</span> &nbsp;Speaking · Consulting<br>
+          <span style="color:#2A5A6A">[STATUS] &nbsp;</span> &nbsp;<span style="color:var(--green)">◉ OPEN TO WORK</span><br>
+          <span style="color:#2A5A6A">[SLA] &nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;24–48 hours
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>SAMRATTH SINGH &nbsp;·&nbsp; <span>ADVERSARIAL AI RESEARCHER</span> &nbsp;·&nbsp; BLACKSITE PORTFOLIO</div>
+  <div style="margin-top:8px;color:#0A2A3A">Built with pure HTML/CSS/JS &nbsp;·&nbsp; Deployed on GitHub Pages</div>
+</footer>
+
+<script>
+const RM = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ===== PARTICLE NETWORK CANVAS ===== */
+(function(){
+  if(RM) return;
+  const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
+  let w,h,pts=[],mx=-999,my=-999;
+  function size(){w=cv.width=innerWidth;h=cv.height=innerHeight;
+    const n=Math.min(90,Math.floor(w*h/16000));pts=[];
+    for(let i=0;i<n;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35});
+  }
+  size();addEventListener('resize',size);
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  function loop(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of pts){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+      const dm=Math.hypot(p.x-mx,p.y-my);
+      ctx.beginPath();ctx.arc(p.x,p.y,dm<140?1.8:1,0,7);
+      ctx.fillStyle=dm<140?'rgba(255,122,0,.7)':'rgba(0,247,255,.45)';ctx.fill();
+    }
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle='rgba(0,247,255,'+(.12*(1-d/120))+')';ctx.lineWidth=.6;ctx.stroke();}
+    }
+    // link to cursor
+    for(const p of pts){const d=Math.hypot(p.x-mx,p.y-my);
+      if(d<160){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mx,my);
+        ctx.strokeStyle='rgba(255,122,0,'+(.18*(1-d/160))+')';ctx.lineWidth=.6;ctx.stroke();}}
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ===== CUSTOM CURSOR ===== */
+(function(){
+  if(RM||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  const cur=document.getElementById('cursor'),dot=document.getElementById('dot');
+  let cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px';});
+  function follow(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(follow);}
+  follow();
+  const hot='a,button,.tag,.acat,.sitem,.q-chip,.q-card,.tilt,.ctf-card,.cert-card,.domain,.hamburger,.tdot';
+  document.addEventListener('mouseover',e=>{if(e.target.closest(hot))cur.classList.add('hot');});
+  document.addEventListener('mouseout',e=>{if(e.target.closest(hot))cur.classList.remove('hot');});
+  document.addEventListener('mouseleave',()=>{cur.style.opacity=0;dot.style.opacity=0;});
+  document.addEventListener('mouseenter',()=>{cur.style.opacity=1;dot.style.opacity=1;});
+})();
+
+/* ===== SCROLL PROGRESS ===== */
+const sp=document.getElementById('scroll-prog');
+addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-innerHeight;
+  sp.style.width=(scrollY/t*100)+'%';},{passive:true});
+
+/* ===== NAV HIDE ON SCROLL DOWN ===== */
+let lastY=0;const nav=document.getElementById('navbar');
+addEventListener('scroll',()=>{const y=scrollY;
+  if(y>lastY&&y>200)nav.classList.add('nav-hidden');else nav.classList.remove('nav-hidden');lastY=y;},{passive:true});
+
+/* ===== HERO GRID PARALLAX ===== */
+const gl=document.getElementById('gridlines');
+if(!RM)addEventListener('mousemove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
+  gl.style.transform=`translate(${x*30}px,${y*30}px)`;},{passive:true});
+
+/* ===== BOOT SEQUENCE ===== */
+const bootLines=['INITIALIZING THREAT ANALYSIS ENGINE...','LOADING RESEARCH DATABASE...','LOADING EXPLOIT FRAMEWORKS...','SCANNING LLM ATTACK SURFACE...','[✓] AUTHENTICATION SUCCESSFUL','WELCOME, OPERATOR'];
+const bl=document.getElementById('boot-lines'),prog=document.getElementById('boot-prog');
+let idx=0;
+function addBootLine(){
+  if(idx<bootLines.length){
+    const p=document.createElement('p');p.className='boot-line';p.textContent='> '+bootLines[idx];
+    p.style.color=idx>=4?'#00FF88':'#00F7FF66';bl.appendChild(p);
+    prog.style.width=((idx+1)/bootLines.length*100)+'%';idx++;
+    setTimeout(addBootLine,idx===bootLines.length?400:280);
+  } else {
+    document.getElementById('boot-name').style.display='block';
+    document.getElementById('boot-role').style.display='block';
+    setTimeout(()=>{document.getElementById('boot').classList.add('hidden');
+      setTimeout(()=>{document.getElementById('boot').style.display='none';},1100);},1000);
+  }
+}
+document.getElementById('boot-bar').style.display='block';
+setTimeout(addBootLine,RM?0:300);
+
+/* ===== HERO GLITCH on name ===== */
+setTimeout(()=>{document.querySelectorAll('.glitch').forEach((g,i)=>{
+  setTimeout(()=>{g.classList.add('go');setTimeout(()=>g.classList.remove('go'),400);},i*180);
+  setInterval(()=>{g.classList.add('go');setTimeout(()=>g.classList.remove('go'),400);},5000+i*900);
+});},RM?100:2400);
+
+/* ===== HERO TYPEWRITER ===== */
+const roles=['Adversarial AI Researcher','LLM Red Teamer','Prompt Injection Specialist','Offensive Security Engineer','Quantum Security Researcher','CTF Competitor'];
+let ri=0,ci=0,del=false;const heroEl=document.getElementById('hero-roles');
+function typeRole(){const r=roles[ri];
+  if(!del){ci++;heroEl.innerHTML=r.slice(0,ci)+'<span class="t-cursor"></span>';
+    if(ci===r.length){del=true;setTimeout(typeRole,2000);return;}}
+  else{ci--;heroEl.innerHTML=r.slice(0,ci)+(ci>0?'<span class="t-cursor"></span>':'');
+    if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(typeRole,300);return;}}
+  setTimeout(typeRole,del?40:70);
+}
+setTimeout(typeRole,RM?200:3000);
+
+/* ===== STAT COUNTERS ===== */
+function runCounters(){
+  document.querySelectorAll('.stat-num').forEach(el=>{
+    if(el.dataset.done)return;el.dataset.done=1;
+    if(el.dataset.text){el.textContent=el.dataset.text;return;}
+    const target=+el.dataset.count,suf=el.dataset.suffix||'';let cur=0;
+    const step=()=>{cur+=Math.max(1,target/30);if(cur>=target){el.textContent=target+suf;}
+      else{el.textContent=Math.floor(cur)+suf;requestAnimationFrame(step);}};step();
+  });
+}
+setTimeout(runCounters,RM?300:1600);
+
+/* ===== TEXT SCRAMBLE / DECRYPT ===== */
+const CH='!<>-_\\/[]{}—=+*^?#01ABCDEF';
+function scramble(el){
+  if(el.dataset.scrambled)return;el.dataset.scrambled=1;
+  const nodes=[...el.childNodes];const orig=nodes.map(n=>({n,t:n.textContent}));
+  const total=orig.reduce((a,o)=>a+o.t.length,0);let frame=0,dur=total*1.6+10;
+  const tick=()=>{
+    let prog=frame/dur;
+    orig.forEach(o=>{const len=o.t.length;let out='';
+      for(let i=0;i<len;i++){const reveal=prog*total-orig.slice(0,orig.indexOf(o)).reduce((a,x)=>a+x.t.length,0);
+        if(i<reveal)out+=o.t[i];
+        else if(o.t[i]===' ')out+=' ';
+        else out+=CH[Math.floor(Math.random()*CH.length)];}
+      o.n.textContent=out;});
+    frame++;if(frame<=dur)requestAnimationFrame(tick);
+    else orig.forEach(o=>o.n.textContent=o.t);
+  };tick();
+}
+
+/* ===== INTERSECTION OBSERVERS ===== */
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  e.target.classList.add('visible');
+  e.target.querySelectorAll?.('.scramble').forEach(s=>scramble(s));
+  if(e.target.classList.contains('scramble'))scramble(e.target);
+}});},{threshold:.12});
+document.querySelectorAll('.fade-in,.scramble').forEach(el=>obs.observe(el));
+
+/* staggered children */
+const stagObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  [...e.target.children].forEach((c,i)=>{c.style.transitionDelay=(i*80)+'ms';});
+  e.target.classList.add('visible');stagObs.unobserve(e.target);
+}});},{threshold:.12});
+document.querySelectorAll('.stagger').forEach(el=>stagObs.observe(el));
+
+/* skill bars */
+const skillObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  e.target.querySelectorAll('.skill-fill').forEach((b,i)=>setTimeout(()=>b.style.width=b.dataset.w+'%',i*90));
+  skillObs.unobserve(e.target);
+}});},{threshold:.3});
+const sg=document.getElementById('skills-grid');if(sg)skillObs.observe(sg);
+
+/* ===== 3D TILT ===== */
+if(!RM&&matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.tilt').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(800px) rotateY(${px*7}deg) rotateX(${-py*7}deg) translateZ(6px)`;});
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+}
+
+/* ===== MAGNETIC BUTTONS ===== */
+if(!RM&&matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.magnetic').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      btn.style.transform=`translate(${x*.3}px,${y*.4}px)`;});
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+  });
+}
+
+/* ===== HAMBURGER ===== */
+const ham=document.getElementById('hamburger');
+ham.addEventListener('click',()=>{document.getElementById('navlinks').classList.toggle('open');ham.classList.toggle('open');});
+document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navlinks').classList.remove('open');ham.classList.remove('open');}));
+
+/* ===== ACTIVE NAV ===== */
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.nav-links a');
+addEventListener('scroll',()=>{let cur='';
+  sections.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>a.classList.toggle('nav-active',a.getAttribute('href')==='#'+cur));},{passive:true});
+
+/* ===== TERMINAL ===== */
+const tc=document.getElementById('term-content');
+const BOOT_SEQ=[
+  {h:'<span style="color:#1A3A4A">██████████████████████████████████████████████</span>',d:0},
+  {h:'<span style="color:#2A4A5A">BLACKSITE AI SECURITY OPS — TERMINAL v2.4.1</span>',d:80},
+  {h:'<span style="color:#1A3A4A">██████████████████████████████████████████████</span>',d:160},
+  {h:'',d:240},
+  {h:'<span style="color:#2A5A6A">[BOOT]  Threat analysis engine &nbsp;&nbsp; <span style="color:#00FF88">OK</span></span>',d:340},
+  {h:'<span style="color:#2A5A6A">[BOOT]  Research database &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#00FF88">OK</span></span>',d:560},
+  {h:'<span style="color:#2A5A6A">[BOOT]  LLM attack surface scan &nbsp;&nbsp; <span style="color:#00FF88">OK</span></span>',d:780},
+  {h:'<span style="color:#2A5A6A">[AUTH]  Authentication &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#00FF88">✓</span></span>',d:1000},
+  {h:'',d:1100},
+];
+const REPLIES={
+  whoami:['<span style="color:#00F7FF22">────────────────────────────────────</span>','  <span style="color:#E8F4FF;font-weight:bold">SAMRATTH SINGH</span>','  <span style="color:#00D4FF">Adversarial AI Researcher · LLM Red Teamer</span>','  <span style="color:#00D4FF">Prompt Injection Specialist · Offensive Sec</span>','<span style="color:#00F7FF22">────────────────────────────────────</span>'],
+  achievements:['<span style="color:#00F7FF22">────────────────────────────────────</span>','  <span style="color:#FFD700">★  Best Paper Award</span> &nbsp; <span style="color:#00D4FF;font-size:10px;background:#00F7FF11;padding:1px 6px;border-radius:2px">ICEM 2024</span>','  <span style="color:#FFD700">★  Best Presentation Award</span> &nbsp; <span style="color:#00D4FF;font-size:10px;background:#00F7FF11;padding:1px 6px;border-radius:2px">NCTAAI 4.0</span>','  <span style="color:#00FF88">▲  Top 5%</span>  HackTheBox Global','  <span style="color:#00FF88">▲  Top 7%</span>  TryHackMe Global','  <span style="color:#00FF88">▲  14th National</span>  Ciphathon CTF','<span style="color:#00F7FF22">────────────────────────────────────</span>'],
+  research:['<span style="color:#00F7FF22">────────────────────────────────────</span>','  <span style="color:#FF7A00">◈  Prompt Injection</span> &nbsp; <span style="color:#2A5A6A">// taxonomy & novel vectors</span>','  <span style="color:#FF7A00">◈  Jailbreaking</span> &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#2A5A6A">// LLM alignment bypass</span>','  <span style="color:#FF7A00">◈  LLM Red Teaming</span> &nbsp; <span style="color:#2A5A6A">// adversarial evaluation</span>','  <span style="color:#FF7A00">◈  Adversarial ML</span> &nbsp;&nbsp; <span style="color:#2A5A6A">// evasion & poisoning</span>','<span style="color:#00F7FF22">────────────────────────────────────</span>'],
+  quantum:['<span style="color:#B47CFF22">────────────────────────────────────</span>','  <span style="color:#B47CFF">⟨ψ|  Quantum Cryptography</span> &nbsp; <span style="color:#5A4A7A">// QKD · post-quantum</span>','  <span style="color:#B47CFF">⟨ψ|  Hypergraph Recon</span> &nbsp;&nbsp; <span style="color:#5A4A7A">// quantum-walk attack surface</span>','  <span style="color:#B47CFF">⟨ψ|  Quantum Adversarial AI</span> <span style="color:#5A4A7A">// VQC evasion · QML poisoning</span>','  <span style="color:#7A4DFF">|0⟩ + |1⟩ &nbsp; superposition engaged</span>','<span style="color:#B47CFF22">────────────────────────────────────</span>'],
+  projects:['<span style="color:#00F7FF22">────────────────────────────────────</span>','  <span style="color:#00FF88">◉  T.E.M.P.E.S.T</span> &nbsp; <span style="color:#2A5A6A">// threat modeling platform</span>','  <span style="color:#00FF88">◉  SPH1NX</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#2A5A6A">// LLM adversarial engine</span>','  <span style="color:#00FF88">◉  S.I.F.E.R</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#2A5A6A">// secure inference framework</span>','<span style="color:#00F7FF22">────────────────────────────────────</span>'],
+  help:['<span style="color:#00F7FF22">────────────────────────────────────</span>','  <span style="color:#00D4FF">whoami &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; operator profile','  <span style="color:#00D4FF">achievements</span> &nbsp; awards & rankings','  <span style="color:#00D4FF">research &nbsp;&nbsp;&nbsp;</span> &nbsp; active research areas','  <span style="color:#B47CFF">quantum &nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp; quantum research division','  <span style="color:#00D4FF">projects &nbsp;&nbsp;&nbsp;</span> &nbsp; classified operations','<span style="color:#00F7FF22">────────────────────────────────────</span>']
+};
+const CMDS=[
+  {h:'<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span style="color:#00FF88">whoami</span>',d:1300},
+  ...REPLIES.whoami.map((h,i)=>({h,d:1480+i*120})),{h:'',d:2100},
+  {h:'<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span style="color:#00FF88">achievements</span>',d:2200},
+  ...REPLIES.achievements.map((h,i)=>({h,d:2380+i*110})),{h:'',d:3100},
+  {h:'<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span style="color:#00FF88">research</span>',d:3200},
+  ...REPLIES.research.map((h,i)=>({h,d:3380+i*110})),{h:'',d:4000},
+];
+function addTermLine(html,delay){return new Promise(res=>{setTimeout(()=>{
+  const p=document.createElement('p');p.style.cssText='margin:0;opacity:0;transition:opacity .15s;font-size:13px;line-height:1.9;white-space:pre';
+  p.innerHTML=html;tc.appendChild(p);requestAnimationFrame(()=>{p.style.opacity='1'});res();},delay);});}
+async function runTerm(){
+  const all=[...BOOT_SEQ,...CMDS];for(const item of all)await addTermLine(item.h,item.d);
+  setTimeout(()=>{
+    const cur=document.createElement('p');cur.style.cssText='margin:0;font-size:13px;line-height:1.9';
+    cur.innerHTML='<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span class="t-cursor"></span>';
+    tc.appendChild(cur);
+    const btns=document.getElementById('term-btns');
+    ['whoami','achievements','research','quantum','projects','help'].forEach(cmd=>{
+      const b=document.createElement('button');b.textContent='> '+cmd;
+      b.style.cssText='background:transparent;border:1px solid #00F7FF22;color:#00F7FF66;font-family:var(--mono);font-size:11px;padding:4px 12px;letter-spacing:1px;transition:all .15s;border-radius:2px';
+      b.onmouseenter=()=>{b.style.background='#00F7FF11';b.style.color='#00F7FF';b.style.borderColor='#00F7FF55'};
+      b.onmouseleave=()=>{b.style.background='transparent';b.style.color='#00F7FF66';b.style.borderColor='#00F7FF22'};
+      b.onclick=()=>replayCmd(cmd);btns.appendChild(b);});
+  },4400);
+}
+function replayCmd(cmd){
+  const cur=tc.querySelector('.t-cursor');if(cur){const p=cur.closest('p');if(p)p.remove();}
+  const cl=document.createElement('p');cl.style.cssText='margin:0;font-size:13px;line-height:1.9';
+  cl.innerHTML=`<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span style="color:#00FF88">${cmd}</span>`;
+  tc.appendChild(cl);
+  const lines=REPLIES[cmd]||[];let d=100;
+  lines.forEach(h=>{const p=document.createElement('p');
+    p.style.cssText='margin:0;opacity:0;font-size:13px;line-height:1.9;white-space:pre;transition:opacity .12s';
+    p.innerHTML=h;tc.appendChild(p);setTimeout(()=>{p.style.opacity='1'},d);d+=80;});
+  setTimeout(()=>{const c=document.createElement('p');c.style.cssText='margin:0;font-size:13px;line-height:1.9';
+    c.innerHTML='<span style="color:#00F7FF">operator@blacksite</span><span style="color:#2A5A6A">:~$</span> <span class="t-cursor"></span>';
+    tc.appendChild(c);c.scrollIntoView({behavior:'smooth',block:'nearest'});},d+60);
+}
+setTimeout(runTerm,RM?200:3000);
+</script>
+</body>
+</html>
